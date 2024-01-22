@@ -16,8 +16,15 @@ THEMES = [
 
 UNWANTED_CLASSES = [
     'bandeau-niveau-ebauche',
-    'bandeau-niveau-modere'
+    'bandeau-niveau-modere',
+    'homonymes',
+    'homonyme'
 ]
+
+
+def remove_all_img(soup: BeautifulSoup):
+    for img in soup.find_all('img'):
+        img.decompose()
 
 
 def get_random_page_html():
@@ -49,28 +56,20 @@ def process_html(raw_html: str):
     title = soup.title.text
     title = title[0:(title.rfind('—'))-1]
 
-    tag_names = ['h3', 'p']
+    tag_names = ['p']
     tags = soup.find_all(tag_names)
 
-    text = f'<h1>{title}</h1>'
+    result = {
+        'title': title,
+        'paragraphs': []
+    }
 
     for tag in tags:
-        tag_string = str(tag)
-        print (tag_string)
-        text += tag_string
+        tag_string = str(tag.text)
+        if tag_string != '\n':
+            result['paragraphs'].append(tag_string)
 
-    with open('C:\\Users\\mafma\\Downloads\\test.html', 'w', encoding="utf-8") as file:
-        file.write(text)
-
-    result = {
-        'title': title
-    }
     return result
-
-
-def remove_all_img(soup: BeautifulSoup):
-    for img in soup.find_all('img'):
-        img.decompose()
 
 
 def remove_all_href(soup: BeautifulSoup):
@@ -93,7 +92,3 @@ def check_is_page_valid(raw_html: str) -> bool:
         if class_name in raw_html:
             return False
     return True
-
-
-html = get_random_page_html()
-print(process_html(html))
