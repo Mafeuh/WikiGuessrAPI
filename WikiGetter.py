@@ -37,7 +37,7 @@ def get_random_page(seed: str = ""):
 
     data = {
         'title': random_page.title,
-        'paragraphs': random_page.summary,
+        'paragraphs': [ random_page.summary ],
         'url': random_page.fullurl
     }
     return data
