@@ -21,6 +21,17 @@ def root():
 
 @app.get("/getpage")
 def get_page():
-    html = WikiGetter.get_random_page_html()
+    json = WikiGetter.get_random_page()
 
-    return WikiGetter.process_html(html)
+    return json
+
+
+@app.get("/getpage/{theme}")
+def get_page_by_theme(theme: str):
+    json = WikiGetter.get_random_page(theme)
+    return json
+
+
+@app.get("/getcategories")
+def get_categories():
+    return WikiGetter.CATEGORIES
