@@ -41,6 +41,3 @@ def get_random_page(seed: str = ""):
         'url': random_page.fullurl
     }
     return data
-
-
-get_random_page()
