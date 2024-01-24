@@ -18,7 +18,7 @@ CATEGORIES = [
 
 
 def get_random_category():
-    return CATEGORIES[random.randint(0, len(CATEGORIES))]
+    return CATEGORIES[random.randint(0, len(CATEGORIES) - 1)]
 
 
 def get_random_page(seed: str = ""):
